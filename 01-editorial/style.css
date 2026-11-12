@@ -436,8 +436,13 @@ button, a { touch-action: manipulation; }
   border-radius: 16px;
   width: 72px;
   height: 72px;
-  font-size: 31px;
   color: var(--accent);
+  flex-shrink: 0;
+}
+.kit .symbol svg {
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 .kit strong { font-size: 18px; }
 .kit p { margin: 5px 0 0; color: var(--textmuted); font-size: 14px; line-height: 1.5; }
@@ -536,6 +541,9 @@ section { scroll-margin-top: 60px; }
   .hero-stamp { left: -25px; }
 }
 @media (max-width: 768px) {
+  .head { min-height: 60px; justify-content: center; padding-block: 14px; }
+  .head .nav { display: none; }
+  .brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
   .audience-grid { grid-template-columns: 1fr; }
   .gallery-header { flex-direction: column; align-items: flex-start; gap: 16px; }
   .gallery-controls { display: none; }
@@ -553,8 +561,9 @@ section { scroll-margin-top: 60px; }
   .three, .pain-grid { grid-template-columns: 1fr; }
   .pain { padding: 23px; }
   .stage { padding: 24px; }
-  .kit { grid-template-columns: 58px 1fr; padding: 20px; gap: 12px; }
-  .kit .symbol { width: 54px; height: 54px; font-size: 23px; }
+  .kit { grid-template-columns: 54px 1fr; padding: 18px; gap: 12px; }
+  .kit .symbol { width: 54px; height: 54px; }
+  .kit .symbol svg { width: 22px; height: 22px; }
   .kit strong { font-size: 15px; }
   .kit p { font-size: 12px; }
   .offer { padding: 29px 22px; }

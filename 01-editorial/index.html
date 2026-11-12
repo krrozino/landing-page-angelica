@@ -446,8 +446,13 @@ button, a { touch-action: manipulation; }
   border-radius: 16px;
   width: 72px;
   height: 72px;
-  font-size: 31px;
   color: var(--accent);
+  flex-shrink: 0;
+}
+.kit .symbol svg {
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 .kit strong { font-size: 18px; }
 .kit p { margin: 5px 0 0; color: var(--textmuted); font-size: 14px; line-height: 1.5; }
@@ -546,6 +551,9 @@ section { scroll-margin-top: 60px; }
   .hero-stamp { left: -25px; }
 }
 @media (max-width: 768px) {
+  .head { min-height: 60px; justify-content: center; padding-block: 14px; }
+  .head .nav { display: none; }
+  .brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
   .audience-grid { grid-template-columns: 1fr; }
   .gallery-header { flex-direction: column; align-items: flex-start; gap: 16px; }
   .gallery-controls { display: none; }
@@ -563,8 +571,9 @@ section { scroll-margin-top: 60px; }
   .three, .pain-grid { grid-template-columns: 1fr; }
   .pain { padding: 23px; }
   .stage { padding: 24px; }
-  .kit { grid-template-columns: 58px 1fr; padding: 20px; gap: 12px; }
-  .kit .symbol { width: 54px; height: 54px; font-size: 23px; }
+  .kit { grid-template-columns: 54px 1fr; padding: 18px; gap: 12px; }
+  .kit .symbol { width: 54px; height: 54px; }
+  .kit .symbol svg { width: 22px; height: 22px; }
   .kit strong { font-size: 15px; }
   .kit p { font-size: 12px; }
   .offer { padding: 29px 22px; }
@@ -843,28 +852,52 @@ section { scroll-margin-top: 60px; }
         </div>
         <div class="kit-grid">
           <article class="kit">
-            <div class="symbol" aria-hidden="true">▦</div>
+            <div class="symbol" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="3" ry="3"/>
+                <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/>
+              </svg>
+            </div>
             <div>
               <strong>12 videoaulas completas</strong>
               <p>1 módulo completo com 12 aulas direto ao ponto, sem mistério e com acesso imediato.</p>
             </div>
           </article>
           <article class="kit">
-            <div class="symbol" aria-hidden="true">✎</div>
+            <div class="symbol" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                <line x1="8" y1="9" x2="16" y2="9"/>
+                <line x1="8" y1="13" x2="13" y2="13"/>
+              </svg>
+            </div>
             <div>
               <strong>Scripts e modelos de mensagens</strong>
               <p>Mensagens de cada etapa da jornada para copiar, adaptar e colar do seu jeito.</p>
             </div>
           </article>
           <article class="kit">
-            <div class="symbol" aria-hidden="true">☑</div>
+            <div class="symbol" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                <path d="m9 14 2 2 4-4"/>
+              </svg>
+            </div>
             <div>
               <strong>Checklists de atendimento</strong>
               <p>Checklist completo de pré, atendimento e pós para você acompanhar seu andamento.</p>
             </div>
           </article>
           <article class="kit">
-            <div class="symbol" aria-hidden="true">◇</div>
+            <div class="symbol" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
             <div>
               <strong>Ficha de cadastro da cliente</strong>
               <p>Ficha prática para registrar preferências de cada cliente e personalizar atendimentos.</p>
