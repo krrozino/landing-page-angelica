@@ -604,6 +604,25 @@ section { scroll-margin-top: 60px; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
+  
+/* Meta Pixel — escolha explícita para cookies não essenciais, sem alterar o layout aprovado. */
+.mma-cookie-banner{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:110;box-sizing:border-box;width:min(880px,calc(100% - 28px));padding:20px 22px;border:1px solid #d8c9b9;border-radius:15px;background:#fffaf5;color:#302c29;box-shadow:0 12px 42px #2c211c36;font:400 14px/1.5 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.mma-cookie-banner[hidden]{display:none!important}
+.mma-cookie-banner__header{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.mma-cookie-banner__title{margin:0 0 5px;font-weight:750;font-size:15px}
+.mma-cookie-banner__text{margin:0;max-width:570px;color:#5e554e}
+.mma-cookie-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.mma-cookie-actions button{font:700 13px/1.2 Inter,system-ui,sans-serif;border-radius:99px;padding:13px 18px;min-height:44px;cursor:pointer;white-space:nowrap}
+.mma-cookie-reject{color:#584d44;background:#fffaf5;border:1px solid #baab9c}
+.mma-cookie-accept{color:white;background:#806554;border:1px solid #806554}
+.mma-cookie-actions button:focus-visible,.mma-cookie-settings:focus-visible,.mma-cookie-details summary:focus-visible{outline:3px solid #9b7565;outline-offset:3px}
+.mma-cookie-details{font-size:12px;color:#685e56;margin-top:10px}
+.mma-cookie-details summary{display:inline-block;font-weight:700;text-decoration:underline;cursor:pointer;padding:4px 0}
+.mma-cookie-details p{max-width:690px;margin:6px 0 0}
+.mma-cookie-settings{color:inherit;background:none;border:0;text-decoration:underline;text-underline-offset:3px;font:inherit;cursor:pointer;padding:3px 0}
+@media(max-width:610px){.mma-cookie-banner{bottom:calc(12px + env(safe-area-inset-bottom));padding:16px 17px;max-height:min(85vh,600px);overflow:auto}.mma-cookie-banner__header{display:block}.mma-cookie-banner__text{font-size:13px}.mma-cookie-actions{margin-top:14px;display:grid;grid-template-columns:1fr 1fr}.mma-cookie-actions button{padding:12px 8px}}
+@media(prefers-reduced-motion:reduce){.mma-cookie-banner *{scroll-behavior:auto!important;transition:none!important}}
+
   </style>
 </head>
 <body>
@@ -1002,7 +1021,7 @@ section { scroll-margin-top: 60px; }
   <footer class="footer">
     <div class="wrap">
       <span>© 2026 Make Me Angel • Protocolos de Atendimento 3X com Angélica Nogueira</span>
-      <span>Política de privacidade copyright © – 2026 Todos os direitos reservados.</span>
+      <span>Todos os direitos reservados. · <button class="mma-cookie-settings" type="button" id="mmaCookieSettings">Privacidade e cookies</button></span>
     </div>
   </footer>
 
@@ -1015,7 +1034,26 @@ section { scroll-margin-top: 60px; }
     <a class="btn btn-primary" href="#oferta">Quero conduzir meus atendimentos →</a>
   </div>
 
+
+  <!-- O pixel de marketing não é carregado antes da escolha do visitante. -->
+  <section class="mma-cookie-banner" id="mmaCookieBanner" role="region" aria-labelledby="mmaCookieTitle" hidden>
+    <div class="mma-cookie-banner__header">
+      <div>
+        <h2 class="mma-cookie-banner__title" id="mmaCookieTitle">Privacidade e cookies</h2>
+        <p class="mma-cookie-banner__text">Com sua permissão, usamos o Pixel da Meta para medir visitas e melhorar nossos anúncios. Você pode recusar sem perder acesso ao site ou ao curso.</p>
+      </div>
+      <div class="mma-cookie-actions">
+        <button class="mma-cookie-reject" type="button" id="mmaCookieReject">Recusar</button>
+        <button class="mma-cookie-accept" type="button" id="mmaCookieAccept">Aceitar</button>
+      </div>
+    </div>
+    <details class="mma-cookie-details">
+      <summary>Como funciona o rastreamento?</summary>
+      <p>Ao aceitar, o Meta Pixel pode registrar sua visita e cliques no botão de compra para medir campanhas publicitárias. Guardamos sua escolha neste navegador. Você pode alterá-la pelo link “Privacidade e cookies” no rodapé. Ao seguir para o checkout, a Kiwify poderá aplicar suas próprias regras de privacidade.</p>
+    </details>
+  </section>
   <script src="assets/preview.js" defer></script>
+  <script src="assets/meta-consent.js" defer></script>
   <script>
     // Pure Vanilla Accessible Gallery Carousel Logic
     (function() {
