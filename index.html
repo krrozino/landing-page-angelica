@@ -2,6 +2,93 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <script id="mma-meta-pixel">
+/* Meta Pixel — inicialização antecipada, sem rastreamento antes do consentimento. */
+(function () {
+  "use strict";
+  if (window.__mmaMetaConsent) return;
+  window.__mmaMetaConsent = true;
+  const PIXEL_ID = "1180097106601724";
+  const KEY = "mma_meta_marketing_consent_v1";
+  let consent = null;
+  let started = false;
+  try {
+    const stored = localStorage.getItem(KEY);
+    if (stored === "granted" || stored === "denied") consent = stored;
+  } catch (_) {}
+  function startPixel() {
+    if (consent !== "granted") return;
+    if (started) {
+      window.fbq("consent", "grant");
+      return;
+    }
+    started = true;
+    if (!window.fbq) {
+      const n = window.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!window._fbq) window._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = "2.0";
+      n.queue = [];
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://connect.facebook.net/en_US/fbevents.js";
+      document.head.appendChild(script);
+    }
+    window.fbq("consent", "grant");
+    window.fbq("init", PIXEL_ID);
+    window.fbq("trackSingle", PIXEL_ID, "PageView");
+    window.fbq("trackSingle", PIXEL_ID, "ViewContent", {
+      content_name: "Protocolos de Atendimento 3X",
+      content_category: "Curso online"
+    });
+  }
+  // Aceites anteriores são respeitados antes de o corpo da página ser processado.
+  if (consent === "granted") startPixel();
+
+  function bind() {
+    const banner = document.getElementById("mmaCookieBanner");
+    const accept = document.getElementById("mmaCookieAccept");
+    const reject = document.getElementById("mmaCookieReject");
+    const settings = document.getElementById("mmaCookieSettings");
+    if (!banner || !accept || !reject || !settings) return;
+
+    function choose(value) {
+      const previous = consent;
+      consent = value;
+      let saved = false;
+      try { localStorage.setItem(KEY, value); saved = true; } catch (_) {}
+      banner.hidden = true;
+      if (value === "granted") {
+        if (previous !== "granted" || !started) startPixel();
+      } else if (started && previous === "granted") {
+        window.fbq("consent", "revoke");
+        if (saved) location.reload();
+      }
+    }
+    accept.addEventListener("click", () => choose("granted"));
+    reject.addEventListener("click", () => choose("denied"));
+    settings.addEventListener("click", () => {
+      banner.hidden = false;
+      accept.focus();
+    });
+    document.querySelectorAll("a[data-checkout]").forEach(link => {
+      link.addEventListener("click", () => {
+        if (consent === "granted" && started) {
+          window.fbq("trackSingleCustom", PIXEL_ID, "CheckoutClick", {
+            content_name: "Protocolos de Atendimento 3X"
+          });
+        }
+      });
+    });
+    if (consent === null) banner.hidden = false;
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind, { once: true });
+  else bind();
+})();
+  </script>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://mangelicacursosonline.com.br/">
@@ -627,6 +714,15 @@ section { scroll-margin-top: 60px; }
 .mma-privacy-link{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .mma-privacy-link:focus-visible{outline:3px solid #9b7565;outline-offset:3px}
 .mma-cookie-details a{color:#6d4f43;text-decoration:underline;text-underline-offset:2px}
+.mma-cookie-banner{width:min(960px,calc(100% - 28px));padding:14px 18px}
+.mma-cookie-banner__header{align-items:center;gap:14px}
+.mma-cookie-banner__text a{color:#71513f;text-decoration:underline}
+.mma-cookie-actions button{min-width:104px;border:1px solid #806554}
+.mma-cookie-reject,.mma-cookie-accept{color:#584d44;background:#fffaf5}
+.mma-cookie-actions button:hover{background:#eee5db}
+.mma-cookie-details{margin-top:4px}
+@media(min-width:850px){.mma-cookie-banner__header{flex-wrap:nowrap}}
+@media(max-width:610px){.mma-cookie-banner{padding:12px 14px}.mma-cookie-actions{margin-top:10px}.mma-cookie-actions button{min-width:0;padding:10px 8px}.mma-cookie-banner__text{font-size:13px;line-height:1.4}.mma-cookie-banner__title{font-size:14px}}
   </style>
 </head>
 <body>
@@ -1044,7 +1140,7 @@ section { scroll-margin-top: 60px; }
     <div class="mma-cookie-banner__header">
       <div>
         <h2 class="mma-cookie-banner__title" id="mmaCookieTitle">Privacidade e cookies</h2>
-        <p class="mma-cookie-banner__text">Com sua permissão, usamos o Pixel da Meta para medir visitas e melhorar nossos anúncios. Você pode recusar sem perder acesso ao site ou ao curso.</p>
+        <p class="mma-cookie-banner__text">Usamos o Pixel da Meta para medir anúncios, somente se você aceitar. Você pode recusar e continuar navegando. <a href="/politica-de-privacidade/">Política de Privacidade</a>.</p>
       </div>
       <div class="mma-cookie-actions">
         <button class="mma-cookie-reject" type="button" id="mmaCookieReject">Recusar</button>
@@ -1053,11 +1149,10 @@ section { scroll-margin-top: 60px; }
     </div>
     <details class="mma-cookie-details">
       <summary>Como funciona o rastreamento?</summary>
-      <p>Ao aceitar, o Meta Pixel pode registrar sua visita e cliques no botão de compra para medir campanhas publicitárias. Guardamos sua escolha neste navegador. Você pode alterá-la pelo link “Preferências de cookies” no rodapé. Ao seguir para o checkout, a Kiwify poderá aplicar suas próprias regras de privacidade. <a href="/politica-de-privacidade/">Leia a Política de Privacidade.</a></p>
+      <p>Ao aceitar, o Meta Pixel pode registrar a visita, a visualização do conteúdo do curso e cliques no botão de compra para medir campanhas publicitárias. Guardamos sua escolha neste navegador. Você pode alterá-la pelo link “Preferências de cookies” no rodapé. Ao seguir para o checkout, a Kiwify poderá aplicar suas próprias regras de privacidade. <a href="/politica-de-privacidade/">Leia a Política de Privacidade.</a></p>
     </details>
   </section>
   <script src="assets/preview.js" defer></script>
-  <script src="assets/meta-consent.js" defer></script>
   <script>
     // Pure Vanilla Accessible Gallery Carousel Logic
     (function() {
